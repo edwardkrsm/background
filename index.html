@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Mô Phỏng Chuyển Động Nền Slide [Hoàng Mạnh Dũng]</title>
+    <style>
+        /* --- Base Tech Aesthetic Styles --- */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #0c1c2f; /* Deep, tech-blue background */
+            font-family: 'Montserrat', sans-serif; /* Futuristic sans-serif font */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* --- Container for all animated layers --- */
+        #container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            /* Subtly shifting background glow */
+            background: radial-gradient(circle at 50% 50%, #1a3350, #0c1c2f 80%);
+            animation: bgGlowShift 20s ease-in-out infinite;
+        }
+
+        /* --- Layer: Data Network and Pulsing Nodes --- */
+        #data-network-layer {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            /* Imagine a complex SVG network of lines and dots */
+            background-image: 
+                repeating-linear-gradient(45deg, #2a4c7a 1px, transparent 2px, transparent 100px),
+                repeating-linear-gradient(-45deg, #2a4c7a 1px, transparent 2px, transparent 100px);
+            opacity: 0.3;
+            z-index: 1;
+            animation: lineSparkle 10s ease-in-out infinite;
+        }
+
+        /* Pulsing light effect along lines */
+        #data-network-layer::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(transparent, #00f0ff, transparent);
+            top: 0; left: 0;
+            animation: dataFlowLines 15s linear infinite;
+            opacity: 0.8;
+        }
+
+        /* --- Layer: Central Spinning Compass --- */
+        #compass-container {
+            position: absolute;
+            /* Centered in the view, distinct from the data box */
+            top: 50%; left: 30%;
+            transform: translate(-50%, -50%);
+            width: 350px; height: 350px;
+            border: 5px solid #00f0ff; /* Glowing cyan edge */
+            border-radius: 50%;
+            background: rgba(12, 28, 47, 0.8); /* Semi-transparent base */
+            /* Add actual compass detail (e.g., an SVG image, or CSS lines) */
+            /* This is a visual placeholder */
+            box-shadow: 0 0 40px #00f0ff; /* Main glowing effect */
+            animation: rotateCompass 120s linear infinite; /* Slow, constant spin */
+            z-index: 4;
+        }
+
+        /* Compass Rose Detail (Visual Representation) */
+        #compass-rose {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('path/to/your/compass.svg') center/70% no-repeat;
+            opacity: 0.9;
+        }
+
+        /* --- Static Text Data Box (Matches the original style) --- */
+        #data-box {
+            position: absolute;
+            top: 50%; left: 70%;
+            transform: translate(-50%, -50%);
+            background: rgba(12, 28, 47, 0.95); /* Darker, focused text area */
+            padding: 40px;
+            border: 2px solid #ffcc00; /* Gold frame */
+            box-shadow: 0 0 25px #ffcc00; /* Glowing gold edge */
+            width: 400px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        /* --- Data Text Formatting --- */
+        #data-box p {
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .main-header {
+            font-weight: bold;
+            font-size: 24px;
+            color: #ffcc00; /* Distinct Gold color */
+            margin-bottom: 2px;
+            text-shadow: 0 0 5px #ffcc00;
+        }
+
+        .round-info {
+            font-size: 16px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .divider {
+            border-top: 1px solid #ffcc00;
+            width: 100%;
+            margin: 10px 0;
+            opacity: 0.7;
+        }
+
+        .presenter-box {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .presenter-label {
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+        }
+
+        .presenter-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffcc00; /* Bold Gold Presenter Name */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px #ffcc00;
+        }
+
+        .student-id-label {
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        .student-id-value {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes rotateCompass {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes bgGlowShift {
+            0% { background: radial-gradient(circle at 50% 50%, #1a3350, #0c1c2f 80%); }
+            50% { background: radial-gradient(circle at 50% 50%, #104070, #0c1c2f 80%); }
+            100% { background: radial-gradient(circle at 50% 50%, #1a3350, #0c1c2f 80%); }
+        }
+
+        @keyframes lineSparkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes dataFlowLines {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(100vw); }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Layer 1: The Network and lines -->
+        <div id="data-network-layer"></div>
+
+        <!-- Layer 2: The Spinning Compass -->
+        <div id="compass-container">
+            <div id="compass-rose">
+                <!-- Insert SVG/Image of your compass here for rotation -->
+            </div>
+        </div>
+
+        <!-- Layer 3: Static Data Box with text (Centered) -->
+        <div id="data-box">
+            <!-- Main Headers -->
+            <p class="main-header">GROWING THROUGH UNCERTAINTY</p>
+            <p class="round-info">ROUND 1: THE SPINNING COMPASS</p>
+            <div class="divider"></div>
+
+            <!-- Presenter Details (Vietnam formatting) -->
+            <div class="presenter-box">
+                <p class="presenter-label">PRESENTER:</p>
+                <p class="presenter-name">Hoàng Mạnh Dũng</p>
+                <p><span class="student-id-label">STUDENT ID:</span> <span class="student-id-value">25040049</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
